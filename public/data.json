@@ -1,0 +1,53 @@
+{
+  "tableData": {
+    "headers": ["", "", "Europe", "Germany", "Great Britain"],
+    "rows": [
+      {
+        "name": "All Articles",
+        "collapsed": false,
+        "subRows": [
+          {
+            "name": "Bikes",
+            "collapsed": false,
+            "rows": [
+              { "name": "Units", "values": [15876, 554, 8792973] },
+              { "name": "Unit Price", "values": [17128, 537, 8760990] },
+              { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+            ],
+            "subRows": [
+              {
+                "name": "Mountain Bikes",
+                "rows": [
+                  { "name": "Units", "values": [15876, 554, 8792973] },
+                  { "name": "Unit Price", "values": [17128, 537, 8760990] },
+                  { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+                ]
+              },
+              {
+                "name": "Road Bikes",
+                "rows": [
+                  { "name": "Units", "values": [15876, 554, 8792973] },
+                  { "name": "Unit Price", "values": [17128, 537, 8760990] },
+                  { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Complementary Products",
+            "rows": [
+              { "name": "Units", "values": [15876, 554, 8792973] },
+              { "name": "Unit Price", "values": [17128, 537, 8760990] },
+              { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+            ]
+          }
+        ],
+        "rows": [
+          { "name": "Units", "values": [15876, 554, 8792973] },
+          { "name": "Unit Price", "values": [17128, 537, 8760990] },
+          { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+        ]
+      }
+    ]
+  }
+}
