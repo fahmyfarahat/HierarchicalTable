@@ -1,51 +1,235 @@
 {
-  "tableData": {
-    "headers": ["", "", "Europe", "Germany", "Great Britain"],
+  "filters": [
+    {
+      "name": "Legal Entity",
+      "options": ["11", "12", "13"]
+    },
+    {
+      "name": "Version",
+      "options": ["Actual", "Forecast"]
+    },
+    {
+      "name": "Currency",
+      "options": ["LC", "USD"]
+    }
+  ],
+  "table": {
+    "columns": [
+      {
+        "id": "europe",
+        "displayName": "Europe",
+        "children": [
+          {
+            "id": "germany",
+            "displayName": "Germany",
+            "collapsed": false,
+            "children": [
+              {
+                "id": "berlin",
+                "displayName": "Berlin"
+              }
+            ]
+          },
+          {
+            "id": "greatBritain",
+            "displayName": "Great Britain"
+          }
+        ]
+      }
+    ],
     "rows": [
       {
-        "name": "All Articles",
-        "collapsed": false,
-        "subRows": [
+        "id": "allArticles",
+        "displayName": "All Articles",
+        "values": [
           {
-            "name": "Bikes",
-            "collapsed": false,
-            "rows": [
-              { "name": "Units", "values": [15876, 554, 8792973] },
-              { "name": "Unit Price", "values": [17128, 537, 8760990] },
-              { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
-            ],
-            "subRows": [
+            "columnId": "europe",
+            "values": {
+              "Units": 15876,
+              "Unit Price": 17128,
+              "Gross Revenue": 1404
+            }
+          },
+          {
+            "columnId": "germany",
+            "values": {
+              "Units": 554,
+              "Unit Price": 537,
+              "Gross Revenue": 59.317
+            }
+          },
+          {
+            "columnId": "berlin",
+            "values": {
+              "Units": 554,
+              "Unit Price": 537,
+              "Gross Revenue": 59.317
+            }
+          },
+          {
+            "columnId": "greatBritain",
+            "values": {
+              "Units": 8792973,
+              "Unit Price": 8760990,
+              "Gross Revenue": 9199039
+            }
+          }
+        ],
+        "children": [
+          {
+            "id": "bikes",
+            "displayName": "Bikes",
+            "values": [
               {
-                "name": "Mountain Bikes",
-                "rows": [
-                  { "name": "Units", "values": [15876, 554, 8792973] },
-                  { "name": "Unit Price", "values": [17128, 537, 8760990] },
-                  { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+                "columnId": "europe",
+                "values": {
+                  "Units": 9876,
+                  "Unit Price": 7128,
+                  "Gross Revenue": 1004
+                }
+              },
+              {
+                "columnId": "germany",
+                "values": {
+                  "Units": 354,
+                  "Unit Price": 437,
+                  "Gross Revenue": 29
+                }
+              },
+              {
+                "columnId": "berlin",
+                "values": {
+                  "Units": 554,
+                  "Unit Price": 537,
+                  "Gross Revenue": 59.317
+                }
+              },
+              {
+                "columnId": "greatBritain",
+                "values": {
+                  "Units": 6792973,
+                  "Unit Price": 60990,
+                  "Gross Revenue": 9039
+                }
+              }
+            ],
+            "children": [
+              {
+                "id": "mountainBikes",
+                "displayName": "Mountain Bikes",
+                "values": [
+                  {
+                    "columnId": "europe",
+                    "values": {
+                      "Units": 3876,
+                      "Unit Price": 3128,
+                      "Gross Revenue": 504
+                    }
+                  },
+                  {
+                    "columnId": "germany",
+                    "values": {
+                      "Units": 154,
+                      "Unit Price": 237,
+                      "Gross Revenue": 19
+                    }
+                  },
+                  {
+                    "columnId": "berlin",
+                    "values": {
+                      "Units": 554,
+                      "Unit Price": 537,
+                      "Gross Revenue": 59.317
+                    }
+                  },
+                  {
+                    "columnId": "greatBritain",
+                    "values": {
+                      "Units": 2792973,
+                      "Unit Price": 30990,
+                      "Gross Revenue": 3039
+                    }
+                  }
                 ]
               },
               {
-                "name": "Road Bikes",
-                "rows": [
-                  { "name": "Units", "values": [15876, 554, 8792973] },
-                  { "name": "Unit Price", "values": [17128, 537, 8760990] },
-                  { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+                "id": "roadBikes",
+                "displayName": "Road Bikes",
+                "values": [
+                  {
+                    "columnId": "europe",
+                    "values": {
+                      "Units": 6000,
+                      "Unit Price": 4000,
+                      "Gross Revenue": 500
+                    }
+                  },
+                  {
+                    "columnId": "germany",
+                    "values": {
+                      "Units": 200,
+                      "Unit Price": 200,
+                      "Gross Revenue": 10
+                    }
+                  },
+                  {
+                    "columnId": "berlin",
+                    "values": {
+                      "Units": 554,
+                      "Unit Price": 537,
+                      "Gross Revenue": 59.317
+                    }
+                  },
+                  {
+                    "columnId": "greatBritain",
+                    "values": {
+                      "Units": 4000000,
+                      "Unit Price": 30000,
+                      "Gross Revenue": 6000
+                    }
+                  }
                 ]
               }
             ]
           },
           {
-            "name": "Complementary Products",
-            "rows": [
-              { "name": "Units", "values": [15876, 554, 8792973] },
-              { "name": "Unit Price", "values": [17128, 537, 8760990] },
-              { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
+            "id": "complementaryProducts",
+            "displayName": "Complementary Products",
+            "values": [
+              {
+                "columnId": "europe",
+                "values": {
+                  "Units": 6000,
+                  "Unit Price": 5000,
+                  "Gross Revenue": 400
+                }
+              },
+              {
+                "columnId": "germany",
+                "values": {
+                  "Units": 200,
+                  "Unit Price": 100,
+                  "Gross Revenue": 30
+                }
+              },
+              {
+                "columnId": "berlin",
+                "values": {
+                  "Units": 554,
+                  "Unit Price": 537,
+                  "Gross Revenue": 59.317
+                }
+              },
+              {
+                "columnId": "greatBritain",
+                "values": {
+                  "Units": 2000000,
+                  "Unit Price": 266000,
+                  "Gross Revenue": 6000
+                }
+              }
             ]
           }
-        ],
-        "rows": [
-          { "name": "Units", "values": [15876, 554, 8792973] },
-          { "name": "Unit Price", "values": [17128, 537, 8760990] },
-          { "name": "Gross Revenue", "values": [1404, 59.317, 9199039] }
         ]
       }
     ]
