@@ -1,4 +1,4 @@
-# Jedox App
+# Hierarchical Table App
 
 This is a Jedox application built with React and Material UI.
 
