@@ -22,7 +22,12 @@ function App() {
   return (
     <Layout>
       <Container maxWidth="xl">
-        <Stack direction="row" alignItems="center" spacing={3}>
+        <Stack
+          direction="row"
+          marginBottom={2}
+          justifyContent="flex-end"
+          spacing={3}
+        >
           <FiltersPanel filters={filters} />
         </Stack>
         <Stack spacing={3}>

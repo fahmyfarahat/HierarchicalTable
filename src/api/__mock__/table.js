@@ -40,7 +40,6 @@ const data = {
           },
           {
             columnId: "germany",
-            // if collapsed for germany, then all children are collapsed
             collapsed: false,
             values: {
               Units: 554,
@@ -50,18 +49,15 @@ const data = {
           },
           {
             columnId: "berlin",
-            // if collapsed for berlin, then all children are collapsed
-            // as its under germany column
             collapsed: false,
             values: {
-              Units: 554,
-              "Unit Price": 537,
+              Units: 0,
+              "Unit Price": 0,
               "Gross Revenue": 59.317,
             },
           },
           {
             columnId: "greatBritain",
-            // if collapsed for germany, then all children are collapsed
             collapsed: false,
             values: {
               Units: 8792973,
@@ -85,7 +81,6 @@ const data = {
                 },
               },
               {
-                // same here, if collapsed for germany, then all children are collapsed
                 columnId: "germany",
                 collapsed: false,
                 values: {
@@ -95,17 +90,15 @@ const data = {
                 },
               },
               {
-                // same here, if collapsed for berlin, then all children are collapsed
                 columnId: "berlin",
                 collapsed: false,
                 values: {
-                  Units: 554,
-                  "Unit Price": 537,
+                  Units: 0,
+                  "Unit Price": 0,
                   "Gross Revenue": 59.317,
                 },
               },
               {
-                // same here, if collapsed for greatBritain, then all children are collapsed
                 columnId: "greatBritain",
                 collapsed: false,
                 values: {
@@ -130,7 +123,6 @@ const data = {
                     },
                   },
                   {
-                    // same here, if collapsed for germany, then all children are collapsed
                     columnId: "germany",
                     collapsed: false,
                     values: {
@@ -140,17 +132,15 @@ const data = {
                     },
                   },
                   {
-                    // same here, if collapsed for berlin, then all children are collapsed
                     columnId: "berlin",
                     collapsed: false,
                     values: {
-                      Units: 554,
+                      Units: 0,
                       "Unit Price": 537,
                       "Gross Revenue": 59.317,
                     },
                   },
                   {
-                    // same here, if collapsed for greatBritain, then all children are collapsed
                     columnId: "greatBritain",
                     collapsed: false,
                     values: {
@@ -187,7 +177,7 @@ const data = {
                     columnId: "berlin",
                     collapsed: false,
                     values: {
-                      Units: 554,
+                      Units: 55334,
                       "Unit Price": 537,
                       "Gross Revenue": 59.317,
                     },

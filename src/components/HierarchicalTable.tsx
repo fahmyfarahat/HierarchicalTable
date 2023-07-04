@@ -63,7 +63,13 @@ const RowComponent: React.FC<{
         <StyledTableRow>
           {label === "Units" ? (
             <RowTableCell
-              style={{ paddingLeft: padding[level], minWidth: 250 }}
+              style={{
+                // fix cell width
+                paddingLeft: padding[level],
+                minWidth: 250,
+                maxWidth: 450,
+                width: 300,
+              }}
             >
               <ExpandButton
                 hide={!hasChildren}
@@ -73,7 +79,14 @@ const RowComponent: React.FC<{
               {row.displayName}
             </RowTableCell>
           ) : (
-            <RowTableCell></RowTableCell>
+            <RowTableCell
+              style={{
+                paddingLeft: padding[level],
+                minWidth: 250,
+                maxWidth: 450,
+                width: 300,
+              }}
+            ></RowTableCell>
           )}
           <RowTableCell>{label}</RowTableCell>
           {columns.map((column) => {
