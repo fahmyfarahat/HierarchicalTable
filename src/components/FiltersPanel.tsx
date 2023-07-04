@@ -11,31 +11,36 @@ interface Filter {
 }
 
 export default function FiltersPanel({ filters }: { filters: Filter[] }) {
-  const [age, setAge] = React.useState("");
+  const [values, setValues] = React.useState<Record<string, string>>({});
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent, name: string) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: event.target.value as string,
+    }));
   };
 
   return (
     <>
-      {filters.map((filter) => {
+      {filters.map((filter, index) => {
         return (
-          <Box sx={{ minWidth: 120 }}>
+          <Box sx={{ minWidth: 120 }} key={index}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                {filter.name}
-              </InputLabel>
+              <InputLabel>{filter.name}</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
+                style={{
+                  width: 144,
+                }}
+                variant="filled"
+                value={values[filter.name] || ""}
                 label={filter.name}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e, filter.name)}
               >
-                {filter.options.map((value) => {
-                  return <MenuItem value={value}>{value}</MenuItem>;
-                })}
+                {filter.options.map((value, optionIndex) => (
+                  <MenuItem value={value} key={optionIndex}>
+                    {value}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>

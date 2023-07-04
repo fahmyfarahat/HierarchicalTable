@@ -8,6 +8,7 @@ export interface Value {
 export interface RowValues {
   columnId: string;
   values: Value;
+  collapsed?: boolean;
 }
 
 export interface RowData {
@@ -28,3 +29,5 @@ export interface TableData {
   columns: Column[];
   rows: RowData[];
 }
+
+export const LABELS = ["Units", "Unit Price", "Gross Revenue"];

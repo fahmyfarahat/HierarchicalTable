@@ -4,8 +4,6 @@ const data = {
       {
         id: "europe",
         displayName: "Europe",
-        // if collapsed for europe, then all children are collapsed
-        // and children of children are collapsed
         collapsed: false,
         children: [
           {

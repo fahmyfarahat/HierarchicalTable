@@ -1,80 +1,14 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  styled,
-} from "@mui/material";
-import { tableCellClasses } from "@mui/material/TableCell";
+import { Box, Table, TableBody, TableHead, TableRow } from "@mui/material";
 import ExpandButton from "./ExpandButton";
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-const EmptyTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#fff",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const ColumnTableCell = styled(TableCell)(({ theme }) => ({
-  padding: "15px",
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.mode === "dark" ? "#232323" : "#EBEEFE",
-    color: theme.palette.mode === "dark" ? "#fff" : "#000",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const RowTableCell = styled(TableCell)(({ theme }) => ({
-  padding: "10px",
-}));
-
-interface Value {
-  Units: number;
-  "Unit Price": number;
-  "Gross Revenue": number;
-  [key: string]: number;
-}
-
-interface RowValues {
-  columnId: string;
-  values: Value;
-  collapsed?: boolean;
-}
-
-interface RowData {
-  id: string;
-  displayName: string;
-  values?: RowValues[];
-  children?: RowData[];
-}
-
-interface Column {
-  id: string;
-  displayName: string;
-  collapsed?: boolean;
-  children?: Column[];
-}
-
-export interface TableData {
-  columns: Column[];
-  rows: RowData[];
-}
+import { flattenColumns, getCollapsedColumns } from "../utils";
+import { Column, LABELS, RowData, TableData } from "../types";
+import {
+  ColumnTableCell,
+  EmptyTableCell,
+  RowTableCell,
+  StyledTableRow,
+} from "./Ui";
 
 const ColumnComponent: React.FC<{
   column: Column;
@@ -122,10 +56,9 @@ const RowComponent: React.FC<{
   };
 
   const renderLabel = () => {
-    const labels = ["Units", "Unit Price", "Gross Revenue"];
     const padding = ["0", "20px", "30px", "40px", "50px"] || "10px";
-
-    return labels.map((label) => {
+    const numberValue = new Intl.NumberFormat("de-DE");
+    return LABELS.map((label) => {
       return (
         <StyledTableRow>
           {label === "Units" ? (
@@ -148,10 +81,12 @@ const RowComponent: React.FC<{
               return null;
             }
             return (
-              <RowTableCell key={column.id}>
+              <RowTableCell key={column.id} style={{ paddingLeft: "30px" }}>
                 {row.values &&
-                  row.values.find((value) => value.columnId === column.id)
-                    ?.values[label]}
+                  numberValue.format(
+                    row.values.find((value) => value.columnId === column.id)
+                      ?.values[label] || 0
+                  )}
               </RowTableCell>
             );
           })}
@@ -179,66 +114,35 @@ const RowComponent: React.FC<{
   );
 };
 
-const flattenColumns = (columns: Column[]): Column[] => {
-  let flattenedColumns: Column[] = [];
-
-  columns.forEach((column) => {
-    flattenedColumns.push(column);
-
-    if (column.children) {
-      flattenedColumns = [
-        ...flattenedColumns,
-        ...flattenColumns(column.children),
-      ];
-    }
-  });
-
-  return flattenedColumns;
-};
-
-const getCollapsedColumns = (list: Column[]): string[] => {
-  let output: string[] = [];
-
-  const traverse = (node: Column, isParentCollapsed: boolean): void => {
-    if (node.children) {
-      for (let child of node.children) {
-        if (isParentCollapsed || node.collapsed) {
-          output.push(child.id);
-        }
-        traverse(child, node.collapsed || isParentCollapsed);
-      }
-    }
-  };
-
-  for (let item of list) {
-    traverse(item, false);
-  }
-
-  return output;
-};
-
 const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
   const [dataColumns, setDataColumns] = useState<Column[]>(columns);
 
-  const handleCollapseToggle = (columnId: string) => {
-    const toggleCollapse = (columns: Column[]): Column[] => {
-      return columns.map((column) => {
-        if (column.id === columnId) {
-          return { ...column, collapsed: !column.collapsed };
-        } else if (column.children) {
-          return { ...column, children: toggleCollapse(column.children) };
-        } else {
-          return column;
-        }
-      });
-    };
+  const handleCollapseToggle = React.useCallback(
+    (columnId: string) => {
+      const toggleCollapse = (columns: Column[]): Column[] => {
+        return columns.map((column) => {
+          if (column.id === columnId) {
+            return { ...column, collapsed: !column.collapsed };
+          } else if (column.children) {
+            return { ...column, children: toggleCollapse(column.children) };
+          } else {
+            return column;
+          }
+        });
+      };
 
-    setDataColumns(toggleCollapse(dataColumns));
-  };
+      setDataColumns(toggleCollapse(dataColumns));
+    },
+    [dataColumns]
+  );
 
-  const flattenedColumns = flattenColumns(dataColumns);
-
-  const collapsedColumns = getCollapsedColumns(dataColumns);
+  const columnsMemo = React.useMemo(
+    () => ({
+      flattenedColumns: flattenColumns(dataColumns),
+      collapsedColumns: getCollapsedColumns(dataColumns),
+    }),
+    [dataColumns]
+  );
 
   return (
     <Box sx={{ minWidth: 800 }}>
@@ -263,8 +167,8 @@ const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
               <RowComponent
                 key={row.id}
                 row={row}
-                columns={flattenedColumns}
-                collapsedColumns={collapsedColumns}
+                columns={columnsMemo.flattenedColumns}
+                collapsedColumns={columnsMemo.collapsedColumns}
               />
             ))}
         </TableBody>
