@@ -13,7 +13,7 @@ git clone git@github.com:fahmyfarahat/HierarchicalTable.git
 2. Navigate into the project directory:
 
 ```bash
-cd jedox-app
+cd HierarchicalTable
 ```
 
 3. Now install all the dependencies by running:
