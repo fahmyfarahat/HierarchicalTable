@@ -10,23 +10,30 @@ import {
   StyledTableRow,
 } from "./Ui";
 
+const padding = ["0", "20px", "30px", "40px", "50px"] || "10px";
+
+// This is a component to render individual columns of the table.
 const ColumnComponent: React.FC<{
   column: Column;
   level?: number;
   handleCollapseToggle: (columnId: string) => void;
 }> = ({ column, level = 0, handleCollapseToggle }) => {
+  // Here we check if the current column has any child columns
   const hasChildren = column.children && column.children.length > 0;
 
   return (
     <>
       <ColumnTableCell>
+        {/* We have an expand/collapse button for columns with children */}
         <ExpandButton
           onClick={() => handleCollapseToggle(column.id)}
           isOpen={column.collapsed}
           hide={!hasChildren}
         />
+        {/* The name of the column */}
         {column.displayName}
       </ColumnTableCell>
+      {/* If a column is expanded and has children, render child columns */}
       {!column.collapsed &&
         column.children &&
         column.children.map((childColumn) => (
@@ -41,6 +48,7 @@ const ColumnComponent: React.FC<{
   );
 };
 
+// This is a component to render individual rows of the table.
 const RowComponent: React.FC<{
   row: RowData;
   level?: number;
@@ -55,8 +63,8 @@ const RowComponent: React.FC<{
     setCollapsed(!collapsed);
   };
 
+  // Function to render labels in the row
   const renderLabel = () => {
-    const padding = ["0", "20px", "30px", "40px", "50px"] || "10px";
     const numberValue = new Intl.NumberFormat("de-DE");
     return LABELS.map((label) => {
       return (
@@ -111,6 +119,7 @@ const RowComponent: React.FC<{
   return (
     <>
       {renderLabel()}
+      {/* If a row is expanded and has children, render child rows */}
       {!collapsed &&
         hasChildren &&
         row.children &&
@@ -127,13 +136,17 @@ const RowComponent: React.FC<{
   );
 };
 
+// This is the main component to render a hierarchical table.
 const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
+  // State for holding the structure of columns in the table
   const [dataColumns, setDataColumns] = useState<Column[]>(columns);
 
+  // Effect to set the initial columns
   React.useEffect(() => {
     setDataColumns(columns);
   }, [columns]);
 
+  // Function to handle the collapsing of columns, this function is memoized using useCallback
   const handleCollapseToggle = React.useCallback(
     (columnId: string) => {
       const toggleCollapse = (columns: Column[]): Column[] => {
@@ -153,9 +166,15 @@ const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
     [dataColumns]
   );
 
-  const flattenedColumns = flattenColumns(dataColumns);
-
-  const collapsedColumns = getCollapsedColumns(dataColumns);
+  // Here we get a flat array of columns and a list of collapsed columns
+  const flattenedColumns = React.useMemo(
+    () => flattenColumns(dataColumns),
+    [dataColumns]
+  );
+  const collapsedColumns = React.useMemo(
+    () => getCollapsedColumns(dataColumns),
+    [dataColumns]
+  );
 
   return (
     <Box sx={{ minWidth: 800 }}>
