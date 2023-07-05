@@ -130,6 +130,10 @@ const RowComponent: React.FC<{
 const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
   const [dataColumns, setDataColumns] = useState<Column[]>(columns);
 
+  React.useEffect(() => {
+    setDataColumns(columns);
+  }, [columns]);
+
   const handleCollapseToggle = React.useCallback(
     (columnId: string) => {
       const toggleCollapse = (columns: Column[]): Column[] => {
@@ -149,13 +153,9 @@ const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
     [dataColumns]
   );
 
-  const columnsMemo = React.useMemo(
-    () => ({
-      flattenedColumns: flattenColumns(dataColumns),
-      collapsedColumns: getCollapsedColumns(dataColumns),
-    }),
-    [dataColumns]
-  );
+  const flattenedColumns = flattenColumns(dataColumns);
+
+  const collapsedColumns = getCollapsedColumns(dataColumns);
 
   return (
     <Box sx={{ minWidth: 800 }}>
@@ -180,8 +180,8 @@ const HierarchicalTable: React.FC<TableData> = ({ columns, rows }) => {
               <RowComponent
                 key={row.id}
                 row={row}
-                columns={columnsMemo.flattenedColumns}
-                collapsedColumns={columnsMemo.collapsedColumns}
+                columns={flattenedColumns}
+                collapsedColumns={collapsedColumns}
               />
             ))}
         </TableBody>

@@ -2,6 +2,8 @@
 
 This is a Jedox application built with React and Material UI.
 
+**Check in CodeSandbox** [https://qngx2n-3000.csb.app/](https://qngx2n-3000.csb.app/)
+
 ## Installation
 
 1. First clone the repository to your local machine. You can do this by running the following command:

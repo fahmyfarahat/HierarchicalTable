@@ -7,10 +7,6 @@ const filters = [
     name: "Version",
     options: ["Actual", "Forecast"],
   },
-  {
-    name: "Currency",
-    options: ["LC", "USD"],
-  },
 ];
 
 export default filters;

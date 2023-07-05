@@ -10,7 +10,13 @@ interface Filter {
   options: string[];
 }
 
-export default function FiltersPanel({ filters }: { filters: Filter[] }) {
+export default function FiltersPanel({
+  filters,
+  onChange,
+}: {
+  filters: Filter[];
+  onChange: (filters: Record<string, string>) => void;
+}) {
   const [values, setValues] = React.useState<Record<string, string>>({});
 
   const handleChange = (event: SelectChangeEvent, name: string) => {
@@ -18,6 +24,10 @@ export default function FiltersPanel({ filters }: { filters: Filter[] }) {
       ...prevValues,
       [name]: event.target.value as string,
     }));
+    onChange({
+      ...values,
+      [name]: event.target.value as string,
+    });
   };
 
   return (

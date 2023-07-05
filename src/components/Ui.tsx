@@ -24,6 +24,7 @@ export const ColumnTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.mode === "dark" ? "#232323" : "#EBEEFE",
     color: theme.palette.mode === "dark" ? "#fff" : "#000",
+    textTransform: "capitalize",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
